@@ -31,17 +31,38 @@ class LinkedList {
     }
 
     at(index) {
+        var currentNode = this._head.data,       
+        length = this.length,
+        count = 0,
+        message = { failure: 'Failure: non-existent node in this list.' };
+        // 1-ый случай: неверная позиция 
+        if (length === 0 || index < 1 || index > length) {
+            throw new Error(message.failure);
+        }
+
+        // 2-ой случай: верная позиция 
+        while (count < index) {
+            currentNode = currentNode.next.data;
+            count++;
+        }
+        return currentNode.data;
 
     }
 
     insertAt(index, data) {}
 
-    isEmpty() {}
+    isEmpty() {
+        return (this._head == null) ? true : false;
+    }
 
-    clear() {}
+    clear() {
+        this.head() = null;
+        this.tail() = null;
+        this.length = 0;
+    }
 
     deleteAt(index) {
-        /*var currentNode = this.head,
+        var currentNode = this.head,
        length = this._length,
        count = 1,
        message = { failure: 'Failure: non-existent node in this list.' },
@@ -78,24 +99,35 @@ class LinkedList {
                     count++;
                 }
 
-                beforeNodeToDelete = currentNode.previous;
+                beforeNodeToDelete = currentNode.prev;
                 nodeToDelete = currentNode;
                 afterNodeToDelete = currentNode.next;
 
                 beforeNodeToDelete.next = afterNodeToDelete;
-                afterNodeToDelete.previous = beforeNodeToDelete;
+                afterNodeToDelete.prev = beforeNodeToDelete;
                 deletedNode = nodeToDelete;
                 nodeToDelete = null;
             }
 
         this._length--;
 
-        return message.success;*/
+        return message.success;
     }
 
     reverse() {}
 
-    indexOf(data) {}
+    indexOf(data) {
+        var currNode = this._head,
+        count = 0;
+        console.log(currNode, 'why', data);
+        if (currNode.data != null && data != null) {
+            while (currNode.data != data) {
+                currNode = currNode.next;
+                count++;
+            }
+        }
+        return (currNode.data != null) ? count : -1;
+    }
 }
 
 module.exports = LinkedList;
