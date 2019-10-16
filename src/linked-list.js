@@ -31,10 +31,44 @@ class LinkedList {
     }
 
     at(index) {
-
+        if (index < 0 || this.length <= index) {
+            return null;
+        } 
+        let current = this._head;
+        let position = 0;
+        while (position < index) {
+            current = current.next;
+            position++;
+        }
+        return current.data;
     }
 
     insertAt(index, data) {
+        if (index < 0 || this.length < index) {
+            return false;
+        }
+
+        let node = new Node(data);
+
+        if (index === 0) {
+            node.next = this._head;
+            this._head = node;
+        } else {
+            let current = this._head;
+            let prev = null;
+            let position = 0;
+
+            while (position < index) {
+                prev = current;
+                current = current.next;
+                position++;
+            }
+
+            prev.next = node;
+            node.next = current;
+        }
+
+        this.length++;
     }
 
     isEmpty() {
@@ -48,20 +82,46 @@ class LinkedList {
     }
 
     deleteAt(index) {
+        if (index < 0 || this.length <= index) {
+            return null;
+        }
+
+        let current = this._head;
+
+        if (index === 0) {
+            this.head = current.next;
+        } else {
+            let prev = null;
+            let position = 0;
+
+            while (position < index) {
+                prev = current;
+                current = current.next;
+                position++;
+            }
+
+            prev.next = current.next;
+        }
+
+        this.length--;
+        return current.data;
     }
 
-    reverse() {}
+    reverse() {
+    }
 
     indexOf(data) {
-        var currNode = this._head,
-        count = 0;
-        if (currNode.data != null && data != null) {
-            while (currNode.data != data) {
-                currNode = currNode.next;
-                count++;
+        let current = this._head;
+        let count = 0;
+
+        while (current) {
+            if (current.data === data) {
+                return count;
             }
+            current = current.next;
+            count++;
         }
-        return (currNode.data != null) ? count : -1;
+        return -1;
     }
 }
 
