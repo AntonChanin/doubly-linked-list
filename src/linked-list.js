@@ -78,7 +78,6 @@ class LinkedList {
     }
 
     clear() {
-        let current = this._head;
         let index = 0;
         while (index <= this.length) {
             this.deleteAt(index);
@@ -117,29 +116,20 @@ class LinkedList {
 
     reverse() {
         let inputList = [];
-        let current = this._head;
-        while (current != null && inputList.length < this.length) {
-            inputList.push(current.data);
-            current = current.next;
-            if (current == null && inputList.length == this.length) {
-                console.log(inputList.reverse());
-                break;
-            }
+        //next_step:
+        let index = 0;
+        let size = this.length;
+        while (index < size) {
+            inputList.push(this.at(index));
+            index++;
         }
-        if (this._head === null || this._head.next === null) {
-        return;
+        inputList.reverse();
+        this.clear();
+        index = 0;
+        while (index < size) {
+            this.append(inputList[index]);
+            index++;
         }
-        let originally = this._head;
-        let intermediate = new LinkedList();
-            if (this._head.next) {
-                intermediate._head = this._head.next;
-            } else {
-                intermediate._head = null;
-            }
-            intermediate.reverse();
-            originally.next.next = originally;
-            originally.next = null;
-            this._head = intermediate._head;
     }
 
     indexOf(data) {
