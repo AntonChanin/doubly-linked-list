@@ -8,9 +8,9 @@ class LinkedList {
     }
 
     append(data) {
-        var node = new Node(data);
+        const node = new Node(data);
 
-        if (this.length) {
+        if (this.length != 0) {
             this._tail.next = node;
             node.prev = this._tail;
             this._tail = node;
@@ -18,16 +18,18 @@ class LinkedList {
             this._head = node;
             this._tail = node;
         }
+
         this.length++;
+        
         return node;
     }
 
     head() {
-      return this._head.data;
+        return (this._head != null) ? this._head.data : null;
     }
 
     tail() {
-     return this._tail.data;
+        return (this._tail != null) ? this._tail.data : null;
     }
 
     at(index) {
@@ -76,8 +78,14 @@ class LinkedList {
     }
 
     clear() {
-        this.head() = null;
-        this.tail() = null;
+        let current = this._head;
+        let index = 0;
+        while (index <= this.length) {
+            this.deleteAt(index);
+            index++;
+        }
+        this._tail = null;
+        this._head = null;
         this.length = 0;
     }
 
@@ -89,7 +97,7 @@ class LinkedList {
         let current = this._head;
 
         if (index === 0) {
-            this.head = current.next;
+            this._head = current.next;
         } else {
             let prev = null;
             let position = 0;
@@ -108,6 +116,30 @@ class LinkedList {
     }
 
     reverse() {
+        let inputList = [];
+        let current = this._head;
+        while (current != null && inputList.length < this.length) {
+            inputList.push(current.data);
+            current = current.next;
+            if (current == null && inputList.length == this.length) {
+                console.log(inputList.reverse());
+                break;
+            }
+        }
+        if (this._head === null || this._head.next === null) {
+        return;
+        }
+        let originally = this._head;
+        let intermediate = new LinkedList();
+            if (this._head.next) {
+                intermediate._head = this._head.next;
+            } else {
+                intermediate._head = null;
+            }
+            intermediate.reverse();
+            originally.next.next = originally;
+            originally.next = null;
+            this._head = intermediate._head;
     }
 
     indexOf(data) {
