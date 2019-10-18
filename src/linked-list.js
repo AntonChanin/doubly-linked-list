@@ -21,7 +21,7 @@ class LinkedList {
 
         this.length++;
         
-        return node;
+        return this;
     }
 
     head() {
@@ -71,6 +71,7 @@ class LinkedList {
         }
 
         this.length++;
+        return this;
     }
 
     isEmpty() {
@@ -86,6 +87,7 @@ class LinkedList {
         this._tail = null;
         this._head = null;
         this.length = 0;
+        return this;
     }
 
     deleteAt(index) {
@@ -111,12 +113,12 @@ class LinkedList {
         }
 
         this.length--;
-        return current.data;
+        //return current.data;
+        return this;
     }
 
     reverse() {
         let inputList = [];
-        //next_step:
         let index = 0;
         let size = this.length;
         while (index < size) {
@@ -130,6 +132,7 @@ class LinkedList {
             this.append(inputList[index]);
             index++;
         }
+        return this;
     }
 
     indexOf(data) {
